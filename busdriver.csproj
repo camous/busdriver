@@ -3,6 +3,9 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <RepositoryUrl>https://github.com/camous/busdriver</RepositoryUrl>
+    <Authors>Fabien Camous</Authors>
+    <Version>1.0.3</Version>
   </PropertyGroup>
 
   <ItemGroup>
