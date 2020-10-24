@@ -11,7 +11,7 @@
 ## configuration
 `appsettings.json`
 
-```json
+```
 {
   "environments": {
     "test": "Endpoint=sb://xxxxxxxx.servicebus.windows.net/;SharedAccessKeyName=xxxxxxx;SharedAccessKey=xxxxxx",
