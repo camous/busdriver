@@ -1,16 +1,15 @@
 ﻿using Microsoft.Azure.ServiceBus;
 using Microsoft.Azure.ServiceBus.Core;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Configuration.FileExtensions;
-using Microsoft.Extensions.Configuration.Json;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Linq;
 using System.Collections.Generic;
 using System.IO;
-using System.Reflection;
 using System.Text;
+using System.Reflection;
+using System.Diagnostics;
 
 namespace busdriver
 {
@@ -19,7 +18,7 @@ namespace busdriver
         static void Main(string[] args)
         {
             var config = new ConfigurationBuilder()
-              .AddJsonFile("appsettings.json", true, true)
+              .AddJsonFile("appsettings.json", false, false)
               .Build();
 
             // get the profile name from either command parameter or from config profile
@@ -32,7 +31,7 @@ namespace busdriver
             else
             {
                 JToken jAppSettings = JToken.Parse(
-                    File.ReadAllText(Path.Combine(Environment.CurrentDirectory, "appsettings.json"))
+                    File.ReadAllText(Path.Combine(AppContext.BaseDirectory, "appsettings.json"))
                 )["profiles"][profilename];
 
                 var entityPath = GetEntityPath(jAppSettings);
@@ -84,6 +83,8 @@ namespace busdriver
         // Generates entityPath for queue or subscription + deadletter flag
         static string GetEntityPath(JToken configuration)
         {
+            Console.WriteLine(configuration);
+
             if (configuration["receivername"] == null)
                 throw new ArgumentException("configuration property `receivername` is missing");
 
